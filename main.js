@@ -69,69 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Contact Form Handling
-    const contactForm = document.getElementById('contact-form');
     
-    if (contactForm) {
-        contactForm.addEventListener('submit', async function (e) {
-            e.preventDefault();
-    
-            const btn = contactForm.querySelector('button');
-            const originalText = btn.innerText;
-    
-            btn.innerText = 'Sending...';
-            btn.disabled = true;
-    
-            try {
-                const formData = new FormData(contactForm);
-    
-                const response = await fetch(contactForm.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-    
-                const result = await response.json();
-    
-                if (response.ok && result.success !== false) {
-                    btn.innerText = 'Message Sent!';
-    
-                    contactForm.reset();
-    
-                    showFormAlert(
-                        'Success',
-                        'Thank you! Your message has been sent successfully.'
-                    );
-    
-                    setTimeout(() => {
-                        btn.innerText = originalText;
-                        btn.disabled = false;
-                    }, 5000);
-    
-                } else {
-                    throw new Error(result.message || 'Form submission failed');
-                }
-    
-            } catch (error) {
-                console.error('Form submission error:', error);
-    
-                btn.innerText = 'Error! Try Again';
-                btn.disabled = false;
-    
-                showFormAlert(
-                    'Error',
-                    'Something went wrong. Please try again or email directly at roopini.812@gmail.com.'
-                );
-    
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                }, 5000);
-            }
-        });
-    }
-
     // Mobile Menu Toggle (Simplified)
     const mobileBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
